@@ -1,0 +1,16 @@
+{
+  "short_name": "Calcgebrite Web",
+  "name": "Calcgebrite Web",
+  "icons": [
+    {
+      "src": "images/android-icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/#",
+  "background_color": "#eb3434",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#eb3434"
+}

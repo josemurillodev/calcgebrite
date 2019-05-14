@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calcgebrite</title>
+  
+  <meta name="author" content="Jose Murillo">
+  <meta name="description" content="Jose Murillo. resume and CV landing page.">
+  <meta name="keywords" content="html5,css3,jquery,scss,node,murillo,designer">
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" sizes="57x57" href="images/icon-57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/icon-60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/icon-72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/icon-76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/icon-57-2x.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/icon-60-2x.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/icon-72-2x.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/icon-76-2x.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="images/apple_splash_750.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="images/apple_splash_1242.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="images/apple_splash_640.png">
+  
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <link rel='stylesheet prefetch' href='css/font-awesome.min.css'>
+  <link rel="stylesheet" href="css/calc.css">
+</head>
+
+<body>
+  <!-- 
+TODO: 
+http://math2.org/math/stat/distributions/z-dist.htm 
+http://www.sitepoint.com/forums/showthread.php?553559-Calculus-Integration-possible-with-Javascript
+http://algebrite.org/docs/0.4.2/reference.html
+http://mathjs.org/examples/browser/angle_configuration.html.html
+http://mathjs.org/docs/datatypes/units.html
+http://mathjs.org/docs/
+-->
+  <div class="container">
+    <div class="calc">
+      <div class="calc_display">
+        <label for="" class="calc_display-query">
+          <span class="calc_clipboard" id="CopyOp"><i class="fa fa-copy"></i></span>
+          <input class="calc_display-query_text" id="EvalResult" type="text" placeholder="Enter a expression below" readonly="true">
+        </label>
+        <label for="" class="calc_display-input">
+          <span class="calc_clipboard" id="CopyResult"><i class="fa fa-copy"></i></span>
+          <span class="calc_clipboard" id="PasteResult"><i class="fa fa-paste"></i></span>
+          <input class="calc_display-query_text" id="UserInput" type="text" readonly="true">
+        </label>
+      </div>
+      <label for="" class="show_layer noselect prev" id="PrevButton"><i class="fa fa-caret-left"></i></label>
+      <label for="" class="show_layer noselect next" id="NextButton"><i class="fa fa-caret-right"></i></label>
+      <input id="ShowAdvanced" type="checkbox" />
+      <label class="show_advanced noselect" for="ShowAdvanced">
+        <i class="fa fa-bars"></i>
+      </label>
+      <input id="Layer1" type="radio" name="Layers" checked="checked" />
+      <label class="show_layer noselect layer_one" for="Layer1">
+        <span>1</span>
+      </label>
+      <input id="Layer2" type="radio" name="Layers" />
+      <label class="show_layer noselect layer_two" for="Layer2">
+        <span>2</span>
+      </label>
+      <div class="calc_wrapper">
+        <div class="calc_buttons advanced_controls">
+          <div class="calc_buttons-row">
+            <label data-val="mc" class="calc_button memory full">
+              <span class="calc_text">mc</span>
+            </label>
+            <label data-val="m+" class="calc_button memory full">
+              <span class="calc_text">m<i class="calc_color">+</i></span>
+            </label>
+            <label data-val="m-" class="calc_button memory full">
+              <span class="calc_text">m<i class="calc_color">-</i></span>
+            </label>
+            <label data-val="mr" class="calc_button memory full">
+              <span class="calc_text">mr</span>
+            </label>
+            <label data-val="(pi)" class="calc_button core main-option full">
+              <span class="calc_text">&pi;</span>
+            </label>
+            <label data-val="i" class="calc_button core shift-option full">
+              <span class="calc_text">i</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="sin(" class="calc_button core main-option full">
+              <span class="calc_text">sin</span>
+            </label>
+            <label data-val="cos(" class="calc_button core main-option full">
+              <span class="calc_text">cos</span>
+            </label>
+            <label data-val="tan(" class="calc_button core main-option full">
+              <span class="calc_text">tan</span>
+            </label>
+            <label data-val="asin(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>sin</span>
+            </label>
+            <label data-val="acos(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>cos</span>
+            </label>
+            <label data-val="atan(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>tan</span>
+            </label>
+            <label data-val="log(" class="calc_button core shift-option full">
+              <span class="calc_text">log</span>
+            </label>
+            <label data-val="sqrt(" class="calc_button core main-option full">
+              <span class="calc_text"><span class="sup">2</span> <span class="calc_color">&radic; </span>x</span>
+            </label>
+            <label data-val="log10(" class="calc_button core shift-option full">
+              <span class="calc_text">log<span class="sub calc_color">10</span></span>
+            </label>
+            <label data-val="cbrt(" class="calc_button core main-option full">
+              <span class="calc_text"><span class="sup">3</span> <span class="calc_color">&radic; </span>x</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="csc(" class="calc_button core main-option full">
+              <span class="calc_text">csc</span>
+            </label>
+            <label data-val="sec(" class="calc_button core main-option full">
+              <span class="calc_text">sec</span>
+            </label>
+            <label data-val="cot(" class="calc_button core main-option full">
+              <span class="calc_text">cot</span>
+            </label>
+            <label data-val="acsc(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>csc</span>
+            </label>
+            <label data-val="asec(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>sec</span>
+            </label>
+            <label data-val="acot(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>cot</span>
+            </label>
+            <label data-val="(e)" class="calc_button core shift-option full">
+              <span class="calc_text">e</span>
+            </label>
+            <label data-val="^2" class="calc_button core main-option full">
+              <span class="calc_text">x<span class="sup calc_color">2</span></span>
+            </label>
+            <label data-val="(e)^" class="calc_button core shift-option full">
+              <span class="calc_text">e<span class="sup calc_color">x</span></span>
+            </label>
+            <label data-val="^3" class="calc_button core main-option full">
+              <span class="calc_text">x<span class="sup calc_color">3</span></span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="sinh(" class="calc_button core main-option full">
+              <span class="calc_text">sin<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="cosh(" class="calc_button core main-option full">
+              <span class="calc_text">cos<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="tanh(" class="calc_button core main-option full">
+              <span class="calc_text">tan<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="asinh(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>sin<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="acosh(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>cos<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="atanh(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>tan<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="derivative" class="calc_button full" id="Derivative">
+              <span class="calc_text">x<i class="calc_color">'</i></span>
+            </label>
+            <label data-val="integral" class="calc_button integral full" id="Integral">
+              <span class="calc_text"><i class="calc_color">&int;</i> x</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="csch(" class="calc_button core main-option full">
+              <span class="calc_text">csc<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="sech(" class="calc_button core main-option full">
+              <span class="calc_text">sec<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="coth(" class="calc_button core main-option full">
+              <span class="calc_text">cot<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="acsch(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>csc<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="asech(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>sec<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="acoth(" class="calc_button core shift-option full">
+              <span class="calc_text"><i class="calc_color">a</i>cot<i class="calc_color">h</i></span>
+            </label>
+            <label data-val="x" class="calc_button core full">
+              <span class="calc_text">x</span>
+            </label>
+            <label data-val="y" class="calc_button core full">
+              <span class="calc_text">y</i></span>
+            </label>
+          </div>
+          <!--end:row-->
+        </div>
+        <div class="calc_buttons main_controls">
+          <div class="calc_buttons-row">
+            <div data-val="C" class="calc_button clear main" id="Clear" readonly="readonly">
+              <span class="calc_text noselect">C</span>
+            </div>
+            <label data-val="(" class="calc_button core">
+              <span class="calc_text">(</span>
+            </label>
+            <label data-val=")" class="calc_button core">
+              <span class="calc_text">)</span>
+            </label>
+            <label data-val="%" class="calc_button core">
+              <span class="calc_text">Mod</span>
+            </label>
+            <label data-val="del" class="calc_button delete" id="Delete">
+              <span class="calc_text">Del</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="^(1/" class="calc_button main-option core">
+              <span class="calc_text"><span class="sup">x</span> <span class="calc_color">&radic; </span>x</span>
+            </label>
+            <label data-val="nthRoot(" class="calc_button shift-option core">
+              <span class="calc_text"><span class="sup calc_color">x</span> &radic; <span class="calc_color">x</span></span>
+            </label>
+            <label data-val="7" class="calc_button digit">
+              <span class="calc_text">7</span>
+            </label>
+            <label data-val="8" class="calc_button digit">
+              <span class="calc_text">8</span>
+            </label>
+            <label data-val="9" class="calc_button digit">
+              <span class="calc_text">9</span>
+            </label>
+            <label data-val="/" class="calc_button core">
+              <span class="calc_text">&divide;</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="^" class="calc_button core">
+              <span class="calc_text">x<span class="sup calc_color">y</span></span>
+            </label>
+            <label data-val="4" class="calc_button digit">
+              <span class="calc_text">4</span>
+            </label>
+            <label data-val="5" class="calc_button digit">
+              <span class="calc_text">5</span>
+            </label>
+            <label data-val="6" class="calc_button digit">
+              <span class="calc_text">6</span>
+            </label>
+            <label data-val="*" class="calc_button core">
+              <span class="calc_text">&times;</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="!" class="calc_button core">
+              <span class="calc_text">x<i class="calc_color">!</i></span>
+            </label>
+            <label data-val="1" class="calc_button digit">
+              <span class="calc_text">1</span>
+            </label>
+            <label data-val="2" class="calc_button digit">
+              <span class="calc_text">2</span>
+            </label>
+            <label data-val="3" class="calc_button digit">
+              <span class="calc_text">3</span>
+            </label>
+            <label data-val="-" class="calc_button core">
+              <span class="calc_text">&#8211;</span>
+            </label>
+          </div>
+          <!--end:row-->
+          <div class="calc_buttons-row">
+            <label data-val="," class="calc_button core calc_color">
+              <span class="calc_text calc_color">&#44;</span>
+            </label>
+            <label data-val="." class="calc_button core">
+              <span class="calc_text calc_color">.</span>
+            </label>
+            <label data-val="0" class="calc_button digit">
+              <span class="calc_text">0</span>
+            </label>
+            <label data-val="=" class="calc_button eval" id="Eval">
+              <span class="calc_text">=</span>
+            </label>
+            <label data-val="+" class="calc_button core">
+              <span class="calc_text">+</span>
+            </label>
+          </div>
+          <!--end:row-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='js/algebrite.bundle-for-browser.js'></script>
+  <script src='js/math.min.js'></script>
+  <script src="js/calc.js"></script>
+</body>
+
+</html>
