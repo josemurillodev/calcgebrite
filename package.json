@@ -1,0 +1,22 @@
+{
+  "name": "calcgebrite",
+  "version": "0.0.1",
+  "description": "Javascript Scientific Calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseluismurillorios/calcgebrite.git"
+  },
+  "keywords": [
+    "Algebrite"
+  ],
+  "author": "Jose Murillo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joseluismurillorios/calcgebrite/issues"
+  },
+  "homepage": "https://github.com/joseluismurillorios/calcgebrite#readme"
+}
